@@ -11,7 +11,7 @@ namespace MidiotecaWeb.Data
 
         public DbSet<Livro> Livros { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<LivroUsuario> LivroUsuarios { get; set; }
+        public DbSet<LivroUsuario> LivroUsuario { get; set; }
         public DbSet<Resenha> Resenhas { get; set; }
         public DbSet<Genero> Generos { get; set; }
 

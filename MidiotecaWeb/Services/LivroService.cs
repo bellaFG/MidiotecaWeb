@@ -35,6 +35,27 @@ namespace MidiotecaWeb.Services
             return livro.Id;
         }
 
+        public async Task<LivroExibicaoDto> ObterLivroPorIdAsync(Guid id)
+        {
+            var livro = await _context.Livros
+                .Include(l => l.Genero)
+                .FirstOrDefaultAsync(l => l.Id == id);
+
+            if (livro == null) throw new Exception("Livro não encontrado.");
+
+            return new LivroExibicaoDto
+            {
+                Id = livro.Id,
+                Titulo = livro.Titulo,
+                Autor = livro.Autor,
+                Editora = livro.Editora,
+                AnoPublicacao = livro.AnoPublicacao,
+                Sinopse = livro.Sinopse,
+                GeneroId = livro.GeneroId,
+                CapaUrl = livro.CapaUrl
+            };
+        }
+
         public async Task EditarLivroAsync(Guid id, LivroEdicaoDto dto)
         {
             var livro = await _context.Livros.FindAsync(id);
@@ -59,40 +80,6 @@ namespace MidiotecaWeb.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<LivroListagemDto>> ListarLivrosAsync()
-        {
-            return await _context.Livros
-                .Include(l => l.Genero)
-                .Select(l => new LivroListagemDto
-                {
-                    Id = l.Id,
-                    Titulo = l.Titulo,
-                    Autor = l.Autor,
-                    Genero = l.Genero.Nome
-                })
-                .ToListAsync();
-        }
-
-        public async Task<LivroExibicaoDto> ObterLivroPorIdAsync(Guid id)
-        {
-            var livro = await _context.Livros
-                .Include(l => l.Genero)
-                .FirstOrDefaultAsync(l => l.Id == id);
-
-            if (livro == null) throw new Exception("Livro não encontrado.");
-
-            return new LivroExibicaoDto
-            {
-                Id = livro.Id,
-                Titulo = livro.Titulo,
-                Autor = livro.Autor,
-                Editora = livro.Editora,
-                AnoPublicacao = livro.AnoPublicacao,
-                Sinopse = livro.Sinopse,
-                GeneroId = livro.GeneroId,
-                CapaUrl = livro.CapaUrl 
-            };
-        }
     }
 }
 

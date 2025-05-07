@@ -1,4 +1,6 @@
-﻿namespace MidiotecaWeb.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace MidiotecaWeb.Models
 {
     public class Livro : Entity
     {
@@ -7,7 +9,9 @@
         public string Editora { get; set; }
         public int AnoPublicacao { get; set; }
         public string Sinopse { get; set; }
-        public IFormFile CapaUrl { get; set; }
+
+        [NotMapped]
+        public IFormFile? CapaUrl { get; set; }
 
         public Guid GeneroId { get; set; }
         public Genero Genero { get; set; }

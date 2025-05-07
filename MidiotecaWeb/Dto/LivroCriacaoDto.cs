@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MidiotecaWeb.Dto
 {
@@ -14,7 +15,6 @@ namespace MidiotecaWeb.Dto
         public Guid GeneroId { get; set; }
         public int? AnoPublicacao { get; set; }
         public string? Sinopse { get; set; }
-
         public IFormFile? CapaUrl { get; set; }
     }
 }
